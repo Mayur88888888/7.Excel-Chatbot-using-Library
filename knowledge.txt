@@ -1,0 +1,11 @@
+Hello - Hi there! How can I help you today?
+How are you - I'm just a bot, but I'm doing great! Thanks for asking.
+What is your name - I'm your friendly VBA bot.
+Good morning - Good morning! Wishing you a productive day.
+Good night - Sleep well! See you tomorrow.
+What can you do - I can chat, learn new things, and log our conversations.
+Who created you - I was created by a curious human with VBA skills.
+Tell me a joke - Why don’t programmers like nature? It has too many bugs.nice one - Very nice to hear that. Thank you very much.
+Good - wow
+Great - Very nice
+Tell me a joke - HAHAHA
