@@ -4,7 +4,7 @@ Chatbot Programming with self inputs
 # How to Use
 1. Create an Excel sheet in any Folder on PC
 2. Save the File as .XLSM ( VBA Enabled )
-3. Go to Developer Tab and import Module1.bas file which is Module Exported data.
+3. Go to Developer Tab and import Module1.bas and frmChatBot.frx and frmChatBot.frm files.
 4. Download and copy Knowledge.txt file
 5. You can alter the file with your Questions and then after adding a - as Separator put answer to the question
 6. This will become your standard Knowledge base to process.
