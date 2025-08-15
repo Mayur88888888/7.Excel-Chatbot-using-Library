@@ -9,4 +9,4 @@ Tell me a joke - Why don’t programmers like nature? It has too many bugs.nice 
 Good - wow
 Great - Very nice
 Tell me a joke - HAHAHA
-Hi - Hello
+hI - How are you

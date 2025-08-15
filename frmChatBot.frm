@@ -18,7 +18,7 @@ Dim knowledgeBase As Object
 Private Sub UserForm_Initialize()
     Set knowledgeBase = CreateObject("Scripting.Dictionary")
     LoadKnowledgeBase
-    txtAnswer.text = "Hello! Ask me something or teach me below."
+    txtAnswer.text = "?? Hello! Ask me something or teach me below."
 End Sub
 
 Private Sub LoadKnowledgeBase()
@@ -42,7 +42,7 @@ Private Sub LoadKnowledgeBase()
     Exit Sub
 
 FileError:
-    MsgBox "Could not load knowledge.txt", vbCritical
+    MsgBox "? Could not load knowledge.txt", vbCritical
 End Sub
 
 Private Sub btnAsk_Click()
@@ -56,12 +56,15 @@ Private Sub btnAsk_Click()
     
     If knowledgeBase.exists(question) Then
         txtAnswer.text = knowledgeBase(question)
+    ElseIf chkAdvanced.Value = True Then
+        txtAnswer.text = SearchAdvancedParagraphs(question)
     Else
-        txtAnswer.text = "I don't know that yet. Teach me below!"
+        txtAnswer.text = "? I don't know that yet. Teach me below!"
     End If
     
     LogInteraction question, txtAnswer.text
 End Sub
+
 
 Private Sub btnTeach_Click()
     Dim newQ As String
@@ -71,7 +74,7 @@ Private Sub btnTeach_Click()
     newA = Trim(txtNewA.text)
     
     If newQ = "" Or newA = "" Then
-        MsgBox "Please fill both new phrase and bot reply.", vbExclamation
+        MsgBox "?? Please fill both new phrase and bot reply.", vbExclamation
         Exit Sub
     End If
     
@@ -119,4 +122,37 @@ Private Sub LogInteraction(question As String, response As String)
     ws.Cells(lastRow, 2).Value = question
     ws.Cells(lastRow, 3).Value = response
 End Sub
+
+Private Function SearchAdvancedParagraphs(keyword As String) As String
+    Dim filePath As String
+    filePath = ThisWorkbook.Path & "\paragraphs.txt"
+    
+    Dim fileNum As Integer: fileNum = FreeFile
+    Dim line As String
+    Dim matches As String
+    
+    On Error GoTo NoFile
+    Open filePath For Input As #fileNum
+    Do While Not EOF(fileNum)
+        Line Input #fileNum, line
+        If InStr(1, LCase(line), LCase(keyword)) > 0 Then
+            matches = matches & line & vbCrLf & vbCrLf
+        End If
+    Loop
+    Close #fileNum
+    
+    If matches <> "" Then
+        SearchAdvancedParagraphs = "?? Here's what I found in extended knowledge:" & vbCrLf & matches
+    Else
+        SearchAdvancedParagraphs = "?? I searched the advanced library but didn’t find anything relevant."
+    End If
+    Exit Function
+
+NoFile:
+    SearchAdvancedParagraphs = "?? Error: Couldn't open paragraphs.txt."
+End Function
+
+
+
+
 
