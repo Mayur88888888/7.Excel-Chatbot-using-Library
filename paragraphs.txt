@@ -1,0 +1,5 @@
+Windows OS is a family of operating systems developed by Microsoft. It supports multitasking, virtual memory, and GUI interfaces.
+
+VBA stands for Visual Basic for Applications. It is used to automate tasks in Microsoft Office applications like Excel, Word, and Access.
+
+UEFI is a modern replacement for BIOS. It supports larger hard drives and secure boot.

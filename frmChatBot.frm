@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmChatBot 
    Caption         =   "UserForm1"
-   ClientHeight    =   5544
+   ClientHeight    =   5388
    ClientLeft      =   108
    ClientTop       =   456
-   ClientWidth     =   7368
+   ClientWidth     =   8424.001
    OleObjectBlob   =   "frmChatBot.frx":0000
    StartUpPosition =   1  'CenterOwner
 End
@@ -56,8 +56,10 @@ Private Sub btnAsk_Click()
     
     If knowledgeBase.exists(question) Then
         txtAnswer.text = knowledgeBase(question)
+    
     ElseIf chkAdvanced.Value = True Then
-        txtAnswer.text = SearchAdvancedParagraphs(question)
+        txtAnswer.text = SearchAllLibraries(question)
+               
     Else
         txtAnswer.text = "? I don't know that yet. Teach me below!"
     End If
@@ -152,6 +154,42 @@ NoFile:
     SearchAdvancedParagraphs = "?? Error: Couldn't open paragraphs.txt."
 End Function
 
+Private Function SearchAllLibraries(keyword As String) As String
+    Dim folderPath As String
+    folderPath = ThisWorkbook.Path & "\libraries\"
+    
+    Dim fileName As String
+    Dim fileNum As Integer
+    Dim line As String
+    Dim content As String
+    Dim matches As String
+    
+    On Error GoTo NoFolder
+    fileName = Dir(folderPath & "*.txt")
+    
+    Do While fileName <> ""
+        fileNum = FreeFile
+        Open folderPath & fileName For Input As #fileNum
+        Do While Not EOF(fileNum)
+            Line Input #fileNum, line
+            If InStr(1, LCase(line), LCase(keyword)) > 0 Then
+                matches = matches & "?? " & fileName & ": " & vbCrLf & line & vbCrLf & vbCrLf
+            End If
+        Loop
+        Close #fileNum
+        fileName = Dir
+    Loop
+    
+    If matches <> "" Then
+        SearchAllLibraries = "?? Found in libraries:" & vbCrLf & matches
+    Else
+        SearchAllLibraries = "?? I searched all libraries but found nothing relevant."
+    End If
+    Exit Function
+
+NoFolder:
+    SearchAllLibraries = "?? Could not find the 'libraries' folder."
+End Function
 
 
 
